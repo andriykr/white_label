@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Lora-Bold.ttf">
+            <string>Lora-Bold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="318" id="KGk-i7-Jjw" customClass="WLTodayNewsCell" customModule="WhiteLabelApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="318"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="317"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="epc-ho-PeM">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="212"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Po-7M-VEy">
+                        <rect key="frame" x="0.0" y="212" width="320" height="105"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zhm-4i-EU7">
+                                <rect key="frame" x="8" y="0.0" width="304" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="24" id="5OZ-c5-Wf4"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Lora-Bold" family="Lora" pointSize="22"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fo0-5Z-uA6">
+                                <rect key="frame" x="0.0" y="32" width="320" height="36"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T4Z-O3-W3D">
+                                        <rect key="frame" x="8" y="7" width="216" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="op6-0b-k9a">
+                                        <rect key="frame" x="276" y="0.0" width="36" height="36"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="36" id="2MO-by-2sl"/>
+                                            <constraint firstAttribute="height" constant="36" id="5cA-bj-hau"/>
+                                        </constraints>
+                                        <state key="normal" image="btnSharingBlack"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OoN-au-ZbX">
+                                        <rect key="frame" x="232" y="0.0" width="36" height="36"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="36" id="O81-8j-WDh"/>
+                                            <constraint firstAttribute="height" constant="36" id="Ox4-MQ-NSj"/>
+                                        </constraints>
+                                        <state key="normal" image="btnBookmarkBlack"/>
+                                        <state key="selected" image="btnBookmarkBlackSelected"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="T4Z-O3-W3D" firstAttribute="leading" secondItem="Fo0-5Z-uA6" secondAttribute="leadingMargin" id="7be-Cf-CZ5"/>
+                                    <constraint firstItem="OoN-au-ZbX" firstAttribute="leading" secondItem="T4Z-O3-W3D" secondAttribute="trailing" constant="8" id="9gd-lJ-72K"/>
+                                    <constraint firstItem="op6-0b-k9a" firstAttribute="leading" secondItem="OoN-au-ZbX" secondAttribute="trailing" constant="8" id="IZD-gb-aLB"/>
+                                    <constraint firstItem="T4Z-O3-W3D" firstAttribute="centerY" secondItem="Fo0-5Z-uA6" secondAttribute="centerY" id="OMf-Az-bcY"/>
+                                    <constraint firstItem="OoN-au-ZbX" firstAttribute="centerY" secondItem="Fo0-5Z-uA6" secondAttribute="centerY" id="dwO-zf-V0N"/>
+                                    <constraint firstAttribute="height" constant="36" id="eV4-iW-l6I"/>
+                                    <constraint firstAttribute="trailing" secondItem="op6-0b-k9a" secondAttribute="trailing" constant="8" id="jX5-8Z-cQc"/>
+                                    <constraint firstItem="op6-0b-k9a" firstAttribute="centerY" secondItem="Fo0-5Z-uA6" secondAttribute="centerY" id="jt9-jK-jgy"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Fo0-5Z-uA6" firstAttribute="centerX" secondItem="7Po-7M-VEy" secondAttribute="centerX" id="HyT-ZF-4Ly"/>
+                            <constraint firstItem="Fo0-5Z-uA6" firstAttribute="width" secondItem="7Po-7M-VEy" secondAttribute="width" id="UjZ-Je-p4n"/>
+                            <constraint firstItem="Zhm-4i-EU7" firstAttribute="top" secondItem="7Po-7M-VEy" secondAttribute="top" id="Yyo-ue-7H7"/>
+                            <constraint firstItem="Zhm-4i-EU7" firstAttribute="leading" secondItem="7Po-7M-VEy" secondAttribute="leadingMargin" id="eMq-y7-JrX"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Zhm-4i-EU7" secondAttribute="trailing" id="wmD-UO-VZe"/>
+                            <constraint firstItem="Fo0-5Z-uA6" firstAttribute="top" secondItem="Zhm-4i-EU7" secondAttribute="bottom" constant="8" id="zfR-sr-UqJ"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                <constraints>
+                    <constraint firstItem="7Po-7M-VEy" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" id="SJU-dY-1u9"/>
+                    <constraint firstItem="7Po-7M-VEy" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="Ug7-A8-XCp"/>
+                    <constraint firstItem="epc-ho-PeM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="VoG-SE-ypa"/>
+                    <constraint firstItem="epc-ho-PeM" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" id="h8R-ci-ohL"/>
+                    <constraint firstItem="epc-ho-PeM" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" multiplier="2:3" id="i6C-2h-Cy7"/>
+                    <constraint firstAttribute="bottom" secondItem="7Po-7M-VEy" secondAttribute="bottom" id="jGd-0I-Mlo"/>
+                    <constraint firstItem="7Po-7M-VEy" firstAttribute="top" secondItem="epc-ho-PeM" secondAttribute="bottom" id="kjn-C0-f5Q"/>
+                    <constraint firstItem="epc-ho-PeM" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="qA3-bT-yOb"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <connections>
+                <outlet property="articleContainer" destination="7Po-7M-VEy" id="E2k-mL-mVQ"/>
+                <outlet property="btnBookmark" destination="OoN-au-ZbX" id="dip-ry-VXU"/>
+                <outlet property="btnShare" destination="op6-0b-k9a" id="bxx-XF-oyK"/>
+                <outlet property="cnstTitleHeight" destination="5OZ-c5-Wf4" id="LWG-yA-2Kq"/>
+                <outlet property="imgArticle" destination="epc-ho-PeM" id="3am-8R-9sA"/>
+                <outlet property="lblDate" destination="T4Z-O3-W3D" id="rkU-19-aIS"/>
+                <outlet property="lblTitle" destination="Zhm-4i-EU7" id="VVZ-6X-ari"/>
+            </connections>
+            <point key="canvasLocation" x="-85" y="-27"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="btnBookmarkBlack" width="15" height="24"/>
+        <image name="btnBookmarkBlackSelected" width="16" height="24"/>
+        <image name="btnSharingBlack" width="24" height="24"/>
+    </resources>
+</document>

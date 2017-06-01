@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11759" systemVersion="16E195" minimumToolsVersion="Xcode 7.3" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="WLArticle" representedClassName=".WLArticle" syncable="YES">
+        <attribute name="body" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="headline" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isBookmark" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="sectionName" optional="YES" transient="YES" attributeType="String" syncable="YES"/>
+        <attribute name="shortText" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="articleLayout" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WLArticleLayout" syncable="YES"/>
+        <relationship name="brand" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="WLBrand" inverseName="articles" inverseEntity="WLBrand" syncable="YES"/>
+        <relationship name="headerimage" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WLAsset" inverseName="articleInverse" inverseEntity="WLAsset" syncable="YES"/>
+    </entity>
+    <entity name="WLArticleLayout" representedClassName=".WLArticleLayout" syncable="YES">
+        <attribute name="backgroundColor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="textColor" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="layoutType" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WLLayoutType" syncable="YES"/>
+    </entity>
+    <entity name="WLAsset" representedClassName="WLAsset" syncable="YES">
+        <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="internetMediaType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="articleInverse" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WLArticle" inverseName="headerimage" inverseEntity="WLArticle" syncable="YES"/>
+        <relationship name="brandInverse" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WLBrand" inverseName="logo" inverseEntity="WLBrand" syncable="YES"/>
+    </entity>
+    <entity name="WLBrand" representedClassName="WLBrand" syncable="YES">
+        <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="theme" optional="YES" attributeType="Transformable" customClassName="WLBrandTheme" syncable="YES"/>
+        <relationship name="articles" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="WLArticle" inverseName="brand" inverseEntity="WLArticle" syncable="YES"/>
+        <relationship name="logo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WLAsset" inverseName="brandInverse" inverseEntity="WLAsset" syncable="YES"/>
+    </entity>
+    <entity name="WLLayoutType" representedClassName=".WLLayoutType" syncable="YES">
+        <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="WLSyncInfo" representedClassName="WLSyncInfo" syncable="YES">
+        <attribute name="lastSyncTimestamp" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="syncToken" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="WLArticle" positionX="-63" positionY="45" width="128" height="195"/>
+        <element name="WLAsset" positionX="-54" positionY="9" width="128" height="120"/>
+        <element name="WLBrand" positionX="-63" positionY="-18" width="128" height="120"/>
+        <element name="WLSyncInfo" positionX="-54" positionY="63" width="128" height="75"/>
+        <element name="WLArticleLayout" positionX="-54" positionY="108" width="128" height="120"/>
+        <element name="WLLayoutType" positionX="-45" positionY="117" width="128" height="75"/>
+    </elements>
+</model>

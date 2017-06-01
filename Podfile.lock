@@ -1,0 +1,65 @@
+PODS:
+  - ChameleonFramework/Default (2.1.0)
+  - ChameleonFramework/Swift (2.1.0):
+    - ChameleonFramework/Default
+  - Contentful (0.3.1):
+    - Decodable (~> 0.5)
+    - Interstellar (~> 2.0.0)
+  - ContentfulPersistenceSwift (0.3.0):
+    - Contentful (~> 0.3.1)
+  - Crashlytics (3.8.4):
+    - Fabric (~> 1.6.3)
+  - Decodable (0.5)
+  - ESPullToRefresh (2.6)
+  - Fabric (1.6.11)
+  - Interstellar (2.0.0):
+    - Interstellar/Core (= 2.0.0)
+    - Interstellar/Warpdrive (= 2.0.0)
+  - Interstellar/Core (2.0.0)
+  - Interstellar/Warpdrive (2.0.0):
+    - Interstellar/Core
+  - MMMarkdown (0.5.5)
+  - ReachabilitySwift (3)
+  - SDWebImage (4.0.0):
+    - SDWebImage/Core (= 4.0.0)
+  - SDWebImage/Core (4.0.0)
+  - XWebView (0.12.0)
+
+DEPENDENCIES:
+  - ChameleonFramework/Swift (from `https://github.com/ViccAlexander/Chameleon.git`)
+  - Contentful
+  - ContentfulPersistenceSwift
+  - Crashlytics
+  - ESPullToRefresh
+  - Fabric
+  - MMMarkdown
+  - ReachabilitySwift
+  - SDWebImage
+  - XWebView
+
+EXTERNAL SOURCES:
+  ChameleonFramework:
+    :git: https://github.com/ViccAlexander/Chameleon.git
+
+CHECKOUT OPTIONS:
+  ChameleonFramework:
+    :commit: acc480fbe023c6e5fe40f68593f4a70a8c4c7ad5
+    :git: https://github.com/ViccAlexander/Chameleon.git
+
+SPEC CHECKSUMS:
+  ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
+  Contentful: 2b3ffedfdf360e97a49f722148526c85d4f40e60
+  ContentfulPersistenceSwift: 099e7c6e5c8ea6dbd8a48b3652bf5f02730507df
+  Crashlytics: 79e236942ca1e7fc641df1feb9a275360a78ab6a
+  Decodable: 7c90acc68d357b71d0d6efc120faf9c53c644b7e
+  ESPullToRefresh: 85f4990acf87f78c6a1466bbbee7a75d7de24db9
+  Fabric: 5911403591946b8228ab1c51d98f1d7137e863c6
+  Interstellar: 63a760ff3a3657f791a4523de4b89727c51edec3
+  MMMarkdown: 1af97166ce0f6d6e0cb05695665492195d27c3f1
+  ReachabilitySwift: f5b9bb30a0777fac8f09ce8b067e32faeb29bb64
+  SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
+  XWebView: 36d25b2634bd64ed57a7ae1f42973bba6b2e0426
+
+PODFILE CHECKSUM: c85fef22eb1b1dfa97ece5063377b46ef05f0b29
+
+COCOAPODS: 1.2.1

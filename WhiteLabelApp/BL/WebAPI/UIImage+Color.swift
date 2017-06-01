@@ -1,0 +1,46 @@
+//
+//  UIImage+Color.swift
+//  WhiteLabelApp
+//
+//  Created by Taras Serbin on 5/5/17.
+//  Copyright © 2017 Taras Serbin. All rights reserved.
+//
+
+import UIKit
+extension UIImage {
+    
+    convenience init?(imageName: String) {
+        self.init(named: imageName)!
+        accessibilityIdentifier = imageName
+    }
+    
+    // http://stackoverflow.com/a/40177870/4488252
+    func imageWithColor (newColor: UIColor?) -> UIImage? {
+        
+        if let newColor = newColor {
+            UIGraphicsBeginImageContextWithOptions(size, false, scale)
+            
+            let context = UIGraphicsGetCurrentContext()!
+            context.translateBy(x: 0, y: size.height)
+            context.scaleBy(x: 1.0, y: -1.0)
+            context.setBlendMode(.normal)
+            
+            let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+            context.clip(to: rect, mask: cgImage!)
+            
+            newColor.setFill()
+            context.fill(rect)
+            
+            let newImage = UIGraphicsGetImageFromCurrentImageContext()!
+            UIGraphicsEndImageContext()
+            newImage.accessibilityIdentifier = accessibilityIdentifier
+            return newImage
+        }
+        
+        if let accessibilityIdentifier = accessibilityIdentifier {
+            return UIImage(imageName: accessibilityIdentifier)
+        }
+        
+        return self
+    }
+}
