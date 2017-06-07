@@ -108,7 +108,7 @@ class WLNewsViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let theme =  WLCoreDataManager.shared.getBarnd(identifier: BRAND_ID)?.theme {
+        if let theme =  WLCoreDataManager.shared.getBrand(identifier: BRAND_ID)?.theme {
             self.navigationController?.navigationBar.titleTextAttributes = [
                 NSForegroundColorAttributeName : UIColor.init(hexString: theme.titleColor!)!
             ]
@@ -121,9 +121,6 @@ class WLNewsViewController: UIViewController {
         tableView.register(UINib.init(nibName: "WLTodayNewsCell", bundle: nil), forCellReuseIdentifier: "WLTodayNewsCell")
         tableView.dataSource = self
         tableView.delegate = self
-       
-        
-        print(self.view.frame.height)
         tableView.sectionHeaderHeight = 0
         // Do any additional setup after loading the view, typically from a nib.
     }

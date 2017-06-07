@@ -82,7 +82,7 @@ class WLCoreDataManager {
             "content_type": ArticleContetntTypeID,
             "fields.brand.sys.id": BRAND_ID,
             "include": 2] as [String : Any]
-        WLWebApi.shared.getArticles(queryParameters, brand:getBarnd(identifier: BRAND_ID)!) { (articles, error) in
+        WLWebApi.shared.getArticles(queryParameters, brand:getBrand(identifier: BRAND_ID)!) { (articles, error) in
             if error == nil {
                 completion(true, nil)
             } else {
@@ -91,7 +91,7 @@ class WLCoreDataManager {
         }
     }
     
-    func getBarnd(identifier:String) -> WLBrand? {
+    func getBrand(identifier:String) -> WLBrand? {
         let fetchRequest:NSFetchRequest<WLBrand> = WLBrand.fetchRequest()
         let predicate = NSPredicate.init(format: "identifier = %@", identifier)
         fetchRequest.predicate = predicate
@@ -100,8 +100,7 @@ class WLCoreDataManager {
             
             return brands.first
             
-        } catch let error as NSError {
-            print("Error \(error)")
+        } catch _ as NSError {
             return nil
         }
     }
@@ -113,8 +112,7 @@ class WLCoreDataManager {
         do {
             let articles = try WLCoreDataManager.shared.managedObjectContext.fetch(fetchRequest)
             return articles.first
-        } catch let error as NSError {
-            print("Error \(error)")
+        } catch _ as NSError {
             return nil
         }
     }
@@ -126,8 +124,7 @@ class WLCoreDataManager {
         do {
             let layouts = try WLCoreDataManager.shared.managedObjectContext.fetch(fetchRequest)
             return layouts.first
-        } catch let error as NSError {
-            print("Error \(error)")
+        } catch _ as NSError {
             return nil
         }
     }
@@ -141,7 +138,7 @@ class WLCoreDataManager {
                 managedObjectContext.delete(article)
             }
         } catch {
-            print("Error \(error)")
+            
         }
     }
     
@@ -155,7 +152,6 @@ class WLCoreDataManager {
             let articles = try WLCoreDataManager.shared.managedObjectContext.fetch(fetchRequest)
             return articles.first?.date
         } catch {
-            print("Error \(error)")
             return nil
         }
     }
@@ -166,8 +162,7 @@ class WLCoreDataManager {
         do {
             let types = try WLCoreDataManager.shared.managedObjectContext.fetch(fetchRequest)
             return types.first
-        } catch let error as NSError {
-            print("Error \(error)")
+        } catch _ as NSError {
             return nil
         }
     }
@@ -184,7 +179,6 @@ class WLCoreDataManager {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
-        print("\(self.applicationDocumentsDirectory)")
         return container
     }()
     
@@ -196,8 +190,6 @@ class WLCoreDataManager {
             do {
                 try managedObjectContext.save()
             } catch {
-                let nserror = error as NSError
-                NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
                 abort()
             }
         }

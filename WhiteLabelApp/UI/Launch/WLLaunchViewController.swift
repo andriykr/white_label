@@ -37,6 +37,7 @@ class WLLaunchViewController: UIViewController {
     }
     
     override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         stopNotifier()
     }
     func setupReachability(_ hostName: String?, useClosures: Bool) {
@@ -51,7 +52,6 @@ class WLLaunchViewController: UIViewController {
     }
     
     func startNotifier() {
-        print("--- start notifier")
         do {
             try reachability?.startNotifier()
         } catch {
@@ -60,7 +60,6 @@ class WLLaunchViewController: UIViewController {
     }
     
     func stopNotifier() {
-        print("--- stop notifier")
         reachability?.stopNotifier()
         NotificationCenter.default.removeObserver(self, name: ReachabilityChangedNotification, object: nil)
         reachability = nil
@@ -71,8 +70,8 @@ class WLLaunchViewController: UIViewController {
         let reachability = note.object as! Reachability
         let appDelegate = UIApplication.shared.delegate as! WLAppDelegate
         if reachability.isReachable {
-            if WLCoreDataManager.shared.getBarnd(identifier: BRAND_ID)  == nil {
-                appDelegate.getBarnd()
+            if WLCoreDataManager.shared.getBrand(identifier: BRAND_ID)  == nil {
+                appDelegate.getBrand()
             }
         }
     }

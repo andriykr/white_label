@@ -15,5 +15,4 @@ target 'WhiteLabelApp' do
 	pod "ESPullToRefresh"
 	pod 'Fabric'
 	pod 'Crashlytics'
-	pod 'XWebView'
 end

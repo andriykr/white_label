@@ -36,9 +36,7 @@ class WLTodayNewsCell: UITableViewCell {
     }
     
     func calculateHeight() {
-        print(articleContainer.frame.height, frame.height, imgArticle.frame.height)
-        
-        let size = lblTitle.sizeThatFits(CGSize.init(width: lblTitle.frame.width, height: CGFloat(FLT_MAX)))
+        let size = lblTitle.sizeThatFits(CGSize.init(width: lblTitle.frame.width, height: CGFloat(Float.greatestFiniteMagnitude)))
         if size.height > frame.height * 0.333 - 44 {
             cnstTitleHeight.constant = frame.height * 0.333 - 44
         } else {

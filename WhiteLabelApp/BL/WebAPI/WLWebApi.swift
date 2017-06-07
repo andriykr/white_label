@@ -21,7 +21,6 @@ class WLWebApi {
         client.fetchEntry(identifier: identifier) { (result) in
             switch result {
             case .success(let entry):
-                print(entry)
                 var brand:WLBrand? = nil
                 do {
                     brand = WLBrand.init(entity: NSEntityDescription.entity(forEntityName: "WLBrand", in: WLCoreDataManager.shared.managedObjectContext)!,
@@ -32,7 +31,6 @@ class WLWebApi {
                         brand?.theme = theme
                     }
                     brand?.name = entry.fields["name"] as? String
-                    let imgEntry = entry.fields["logo"] as! [String:[String:Any]]
                     if let imgEntry = entry.fields["logo"] as? [String:[String:Any]] {
                         self.client.fetchAsset(identifier: imgEntry["sys"]!["id"] as! String, completion: { (result) in
                             switch result{
@@ -59,7 +57,6 @@ class WLWebApi {
         client.fetchEntries(matching: matching) { result in
             switch result {
             case .success(let array):
-                print(array)
                 var arrayOfIds = [String]()
                 let articles = array.items
                 var result = [WLArticle]()
@@ -93,7 +90,6 @@ class WLWebApi {
                     if let updateStr =  entry.sys["updatedAt"] as? String {
                         let dateFormater = DateFormatter.init()
                         dateFormater.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSz"
-                        print(dateFormater.date(from: updateStr))
                         completion(dateFormater.date(from: updateStr), nil)
                         
                     }

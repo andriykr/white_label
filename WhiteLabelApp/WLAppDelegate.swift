@@ -28,10 +28,10 @@ class WLAppDelegate: UIResponder, UIApplicationDelegate {
         let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateInitialViewController()
         self.window?.rootViewController = vc
         self.window?.makeKeyAndVisible()
-        if let brand = WLCoreDataManager.shared.getBarnd(identifier: BRAND_ID) {
+        if let brand = WLCoreDataManager.shared.getBrand(identifier: BRAND_ID) {
             applyTheme(theme: brand.theme!)
         } else {
-            getBarnd()
+            getBrand()
         }
         Fabric.with([Crashlytics.self])
         
@@ -54,7 +54,7 @@ class WLAppDelegate: UIResponder, UIApplicationDelegate {
             "content_type": ArticleContetntTypeID,
             "fields.brand.sys.id": BRAND_ID,
             "include": 2] as [String : Any]
-        WLWebApi.shared.getArticles(queryParameters, brand:WLCoreDataManager.shared.getBarnd(identifier: BRAND_ID)!) { (articles, error) in
+        WLWebApi.shared.getArticles(queryParameters, brand:WLCoreDataManager.shared.getBrand(identifier: BRAND_ID)!) { (articles, error) in
             
         }
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
@@ -71,8 +71,12 @@ class WLAppDelegate: UIResponder, UIApplicationDelegate {
     func applyTheme(theme:WLBrandTheme) {
         if let mainVC = window?.rootViewController {
             let vc = UIStoryboard.init(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TopViewController")
-            window?.rootViewController = vc
-            mainVC.present(vc, animated: false, completion: nil)
+            mainVC.present(vc, animated: false, completion: {
+                self.window?.rootViewController = vc
+            })
+            
+            
+           
         }
     }
     
@@ -91,7 +95,7 @@ class WLAppDelegate: UIResponder, UIApplicationDelegate {
         controller.present(alert, animated: true, completion: nil)
     }
     
-    func getBarnd() {
+    func getBrand() {
         WLWebApi.shared.getBrand(identifier: BRAND_ID) { (b, error) in
             if error == nil {
                 DispatchQueue.main.async {

@@ -25,7 +25,7 @@ class WLNavigationController: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
         delegate = self
-        if let theme =  WLCoreDataManager.shared.getBarnd(identifier: BRAND_ID)?.theme {
+        if let theme =  WLCoreDataManager.shared.getBrand(identifier: BRAND_ID)?.theme {
             navigationBar.tintColor = UIColor.init(hexString: theme.titleColor!)
             navigationBar.barTintColor = UIColor.init(hexString: theme.bodyColor!)
             self.navigationController?.navigationBar.titleTextAttributes = [

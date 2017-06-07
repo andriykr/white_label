@@ -9,7 +9,6 @@
 import UIKit
 import WebKit
 import MMMarkdown
-import XWebView
 class WLNewsDetailViewController: UIViewController {
     
     var dataObjectIdetifier = ""
@@ -33,7 +32,7 @@ class WLNewsDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let theme =  WLCoreDataManager.shared.getBarnd(identifier: BRAND_ID)?.theme {
+        if let theme =  WLCoreDataManager.shared.getBrand(identifier: BRAND_ID)?.theme {
             self.navigationController?.navigationBar.titleTextAttributes = [
                 NSForegroundColorAttributeName : UIColor.init(hexString: theme.titleColor!)!
             ]
@@ -49,7 +48,6 @@ class WLNewsDetailViewController: UIViewController {
         lblDate.text = dateFormatter.string(from: article.date!)
         btnBookmark.isSelected = article.isBookmark
         lblTitle.text = article.headline
-        print(articleText)
         do {
             
             
@@ -99,7 +97,6 @@ class WLNewsDetailViewController: UIViewController {
         imgArticle.image = image
         
         self.navigationController?.isNavigationBarHidden = false
-        print(self.navigationItem)
         imgArticle.layer.masksToBounds = true
 
         view.backgroundColor = .clear
@@ -118,9 +115,7 @@ class WLNewsDetailViewController: UIViewController {
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "webView.scrollView.contentSize" {
             if cnstHeight.constant !=  webView.scrollView.contentSize.height {
-                print(webView.scrollView.contentSize.height)
                 cnstHeight.constant = webView.scrollView.contentSize.height
-                print(webView.scrollView.contentSize.height, cnstHeight.constant)
                 self.view.layoutIfNeeded()
             }
         }
@@ -194,33 +189,11 @@ extension WLNewsDetailViewController: WKNavigationDelegate {
         } else {
             if let url = navigationAction.request.url {
                 if url == baseURL {
-                    print("not a user click")
                     decisionHandler(.allow)
                 }
             }
         }
         decisionHandler(.cancel)
     }
-    
-//    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-//        insertContentsOfCSSFile(into: webView) // 2
-//    }
-//    
-//    func insertCSSString(into webView: WKWebView) {
-//        let cssString = "body { font-size: 50px; color: #f00 }"
-//        let jsString = "var style = document.createElement('style'); style.innerHTML = '\(cssString)'; document.head.appendChild(style);"
-//        webView.evaluateJavaScript(jsString, completionHandler: nil)
-//    }
-//    
-//    func insertContentsOfCSSFile(into webView: WKWebView) {
-//        guard let path = appDelegate.bundle.path(forResource: "down_min", ofType: "css", inDirectory:"css") else { return }
-//        let cssString = try! String(contentsOfFile: path).trimmingCharacters(in: .whitespacesAndNewlines)
-//        let jsString = "var style = document.createElement('style'); style.innerHTML = '\(cssString)'; document.head.appendChild(style);"
-//        webView.evaluateJavaScript(jsString, completionHandler: nil)
-//    }
-//    
-//    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-//        print(error)
-//    }
 }
 

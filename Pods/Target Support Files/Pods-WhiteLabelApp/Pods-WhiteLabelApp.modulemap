@@ -1,0 +1,6 @@
+framework module Pods_WhiteLabelApp {
+  umbrella header "Pods-WhiteLabelApp-umbrella.h"
+
+  export *
+  module * { export * }
+}
