@@ -1,4 +1,5 @@
 PODS:
+  - AMScrollingNavbar (3.4.0)
   - ChameleonFramework/Default (2.1.0)
   - ChameleonFramework/Swift (2.1.0):
     - ChameleonFramework/Default
@@ -18,6 +19,7 @@ PODS:
   - Interstellar/Core (2.0.0)
   - Interstellar/Warpdrive (2.0.0):
     - Interstellar/Core
+  - Kanna (2.2.1)
   - MMMarkdown (0.5.5)
   - ReachabilitySwift (3)
   - SDWebImage (4.0.0):
@@ -25,12 +27,14 @@ PODS:
   - SDWebImage/Core (4.0.0)
 
 DEPENDENCIES:
+  - AMScrollingNavbar
   - ChameleonFramework/Swift (from `https://github.com/ViccAlexander/Chameleon.git`)
   - Contentful
   - ContentfulPersistenceSwift
   - Crashlytics
   - ESPullToRefresh
   - Fabric
+  - Kanna
   - MMMarkdown
   - ReachabilitySwift
   - SDWebImage
@@ -45,6 +49,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/ViccAlexander/Chameleon.git
 
 SPEC CHECKSUMS:
+  AMScrollingNavbar: 64b3626ebd557cbe4ddf7fdd31c652f02c9b8888
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
   Contentful: 2b3ffedfdf360e97a49f722148526c85d4f40e60
   ContentfulPersistenceSwift: 099e7c6e5c8ea6dbd8a48b3652bf5f02730507df
@@ -53,10 +58,11 @@ SPEC CHECKSUMS:
   ESPullToRefresh: 85f4990acf87f78c6a1466bbbee7a75d7de24db9
   Fabric: 5911403591946b8228ab1c51d98f1d7137e863c6
   Interstellar: 63a760ff3a3657f791a4523de4b89727c51edec3
+  Kanna: 182789ab065e8f9a6ccc2a74ce6283d3401c0c4a
   MMMarkdown: 1af97166ce0f6d6e0cb05695665492195d27c3f1
   ReachabilitySwift: f5b9bb30a0777fac8f09ce8b067e32faeb29bb64
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
 
-PODFILE CHECKSUM: 7a80a4b0ba0979659e3a2e57b0088d3dd1c17e39
+PODFILE CHECKSUM: 1b4e95b396f218ca0b6f77d0df77a70ce3a5f47f
 
 COCOAPODS: 1.2.1

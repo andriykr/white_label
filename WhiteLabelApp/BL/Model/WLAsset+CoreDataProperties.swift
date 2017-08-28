@@ -19,7 +19,7 @@ extension WLAsset {
     @NSManaged public var identifier: String?
     @NSManaged public var internetMediaType: String?
     @NSManaged public var url: String?
-    @NSManaged public var articleInverse: WLArticle?
+    @NSManaged public var news: WLNews?
     @NSManaged public var brandInverse: WLBrand?
 
 }

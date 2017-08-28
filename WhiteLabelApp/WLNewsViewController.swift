@@ -10,6 +10,7 @@ import UIKit
 import ChameleonFramework
 import CoreData
 import ESPullToRefresh
+import SafariServices
 
 class WLNewsViewController: UIViewController {
 
@@ -22,7 +23,7 @@ class WLNewsViewController: UIViewController {
     }()
     
     lazy var dataSource:WLDataSource = {
-        let resultsController = try! self.dataManager.fetchedResultsController(forContentType: WLArticle.self, predicate: self.predicate, sortDescriptors: [NSSortDescriptor(key: "date", ascending: false)], sectionName:self.sectionName)
+        let resultsController = try! self.dataManager.fetchedResultsController(forContentType: WLNews.self, predicate: self.predicate, sortDescriptors: [NSSortDescriptor(key: "date", ascending: false)], sectionName:self.sectionName)
         return WLDataSource(fetchedResultsController: resultsController, tableView: self.tableView)
     }()
     
@@ -44,51 +45,54 @@ class WLNewsViewController: UIViewController {
         }
         
         if PreferenceManager.shared.lastDate != nil {
-        let dateFormater = DateFormatter.init()
-        dateFormater.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
-        dateFormater.timeZone = TimeZone.init(abbreviation: "UTC")
-        let queryParameters = [
-            "content_type": ArticleContetntTypeID,
-            "fields.brand.sys.id": BRAND_ID,
-            "sys.updatedAt[gt]": dateFormater.string(from: PreferenceManager.shared.lastDate!),
-            "order": "sys.updatedAt",
-            "include": 2] as [String : Any]
-        WLWebApi.shared.getLastDate(queryParameters) { (date, error) in
-            if error == nil {
-                if let resultDate = date, let ldate = PreferenceManager.shared.lastDate {
-                    if resultDate != ldate {
-                        self.dataManager.performSynchronization { (result, error) in
-                            DispatchQueue.main.async {
-                                WLCoreDataManager.shared.saveContext()
-                                if result {
-                                    do {
-                                        try refresh()
-                                    } catch {}
-                                } else {
-                                    let actionOk = UIAlertAction.init(title: "OK", style: .cancel, handler: nil)
-                                    appDelegate.showAlertError(controller: self, title: "Error", message: error!.localizedDescription, actions: [actionOk])
+            let dateFormater = DateFormatter.init()
+            dateFormater.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+            dateFormater.timeZone = TimeZone.init(abbreviation: "UTC")
+            let queryParameters = [
+                "content_type": ArticleContetntTypeID,
+                "fields.brand.sys.id": BRAND_ID,
+                "sys.updatedAt[gt]": dateFormater.string(from: PreferenceManager.shared.lastDate!),
+                "order": "sys.updatedAt",
+                "include": 2] as [String : Any]
+            WLWebApi.shared.getLastDate(queryParameters) { (date, error) in
+                if error == nil {
+                    if let resultDate = date, let ldate = PreferenceManager.shared.lastDate {
+                        print(resultDate, ldate)
+                        if resultDate != ldate {
+                            self.dataManager.performSynchronization { (result, error) in
+                                DispatchQueue.main.async {
+                                    WLCoreDataManager.shared.saveContext()
+                                    if result {
+                                        do {
+                                            try refresh()
+                                         
+                                        } catch {}
+                                    } else {
+                                        let actionOk = UIAlertAction.init(title: "OK", style: .cancel, handler: nil)
+                                        appDelegate.showAlertError(controller: self, title: "Error", message: error!.localizedDescription, actions: [actionOk])
+                                    }
                                 }
                             }
-                        }
-                    } else {
-                        DispatchQueue.main.async {
-                            do {
-                                try refresh()
-                            } catch {}
+                        } else {
+                            DispatchQueue.main.async {
+                                do {
+                                    try refresh()
+                                } catch {}
+                            }
                         }
                     }
+                } else {
+                    DispatchQueue.main.async {
+                        let actionOk = UIAlertAction.init(title: "OK", style: .cancel, handler: nil)
+                        appDelegate.showAlertError(controller: self, title: "Error", message: error!.localizedDescription, actions: [actionOk])
+                        do {
+                            try refresh()
+                        } catch {}
+                    }
+                    
                 }
-            } else {
-                DispatchQueue.main.async {
-                    let actionOk = UIAlertAction.init(title: "OK", style: .cancel, handler: nil)
-                    appDelegate.showAlertError(controller: self, title: "Error", message: error!.localizedDescription, actions: [actionOk])
-                    do {
-                        try refresh()
-                    } catch {}
-                }
-                
             }
-        }
+
         } else {
             self.dataManager.performSynchronization { (result, error) in
                 DispatchQueue.main.async {
@@ -146,9 +150,15 @@ class WLNewsViewController: UIViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let vc = segue.destination as? WLNewsDetailViewController, let cell = sender as? CellConfigurable {
-            vc.dataObjectIdetifier = cell.dataObjectIdentifier
-            vc.image = cell.imageArticle
+        if segue.identifier == "NewsDetailSegue" {
+            if let vc = segue.destination as? WLNewsDetailViewController, let cell = sender as? CellConfigurable {
+                vc.dataObjectIdetifier = cell.dataObjectIdentifier
+                vc.image = cell.imageArticle
+            }
+        } else {
+            if let vc = segue.destination as? WLLinkDetailViewController, let cell = sender as? CellConfigurable {
+                vc.dataObjectIdetifier = cell.dataObjectIdentifier
+            }
         }
     }
 
@@ -164,23 +174,30 @@ extension WLNewsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
          if dataSource.fetchedResultsController.sections![indexPath.section].name.isEmpty {
-            let cell:UITableViewCell!
-            let dataObject = dataSource.fetchedResultsController.object(at: indexPath) as! WLArticle
-            if dataObject.articleLayout?.layoutType?.name == fullScreenLayoutName {
-                cell = tableView.dequeueReusableCell(withIdentifier: "WLFullScreenImageCell", for: indexPath)
-                
+            let cell:UITableViewCell
+            let dataObject = dataSource.fetchedResultsController.object(at: indexPath) as! WLNews
+            if dataObject is WLArticle {
+                if (dataObject as! WLArticle).articleLayout?.layoutType?.name == fullScreenLayoutName {
+                    cell = tableView.dequeueReusableCell(withIdentifier: "WLFullScreenImageCell", for: indexPath)
+                    
+                } else {
+                    cell = tableView.dequeueReusableCell(withIdentifier: "WLTodayNewsCell", for: indexPath)
+                }
+                cell.tag = indexPath.row
             } else {
-                cell = tableView.dequeueReusableCell(withIdentifier: "WLTodayNewsCell", for: indexPath)
+                cell = tableView.dequeueReusableCell(withIdentifier: "WLFullScreenImageCell", for: indexPath)
             }
-            cell.tag = indexPath.row
+            
             (cell as! CellConfigurable).configure(dataObject: dataObject)
             return cell
         }
+        let frameOfGradient = CGRect(x:0, y:0, width: UIApplication.shared.statusBarFrame.width, height: (CGFloat(tableView.frame.height / 1.95).rounded(.up)) - 44 - 80)
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "WLYesterdayNewsCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "WLYesterdayNewsCell", for: indexPath) as! WLYesterdayNewsCell
+        cell.gradientView.backgroundColor = GradientColor(.topToBottom, frame:frameOfGradient, colors:  [UIColor.init(hexString:"#2e343e")!.withAlphaComponent(0.0) , UIColor.init(hexString:"2e343e")!.withAlphaComponent(2.0)])
+        cell.btnContainerView.backgroundColor = UIColor.init(hexString:"2e343e")
         let dataObject = dataSource.fetchedResultsController.object(at: indexPath) as! NSManagedObject
         cell.tag = indexPath.row
-
         (cell as! CellConfigurable).configure(dataObject: dataObject)
         return cell
         
@@ -189,9 +206,17 @@ extension WLNewsViewController: UITableViewDelegate, UITableViewDataSource {
 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       let cell = tableView.cellForRow(at: indexPath) as? CellConfigurable
-        performSegue(withIdentifier: "NewsDetailSegue", sender: cell)
+        let cell = tableView.cellForRow(at: indexPath) as? CellConfigurable
+        let dataObject = dataSource.fetchedResultsController.object(at: indexPath) as! WLNews
+        if dataObject is WLArticle {
+            performSegue(withIdentifier: "NewsDetailSegue", sender: cell)
+        } else if dataObject is WLLink {
+            performSegue(withIdentifier: "LinkDetailSegue", sender: cell)
+
+        }
     }
+    
+    
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if dataSource.fetchedResultsController.sections![section].name.isEmpty {
@@ -220,7 +245,19 @@ extension WLNewsViewController: UITableViewDelegate, UITableViewDataSource {
         if dataSource.fetchedResultsController.sections![indexPath.section].name.isEmpty {
             return tableView.frame.height
         }
-        return CGFloat(tableView.frame.height / 2.5).rounded(.up)
+        return CGFloat(tableView.frame.height / 1.95).rounded(.up)
+    }
+    
+    func tableView(tableView: UITableView, shouldHighlightRowAtIndexPath indexPath: IndexPath) -> Bool {
+        return false
     }
 }
 
+extension WLNewsViewController: SFSafariViewControllerDelegate {
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        // pop safari view controller and display navigation bar again
+        print(navigationController?.viewControllers)
+        navigationController?.popViewController(animated: true)
+        navigationController?.isNavigationBarHidden = false
+    }
+}

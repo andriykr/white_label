@@ -26,6 +26,7 @@ class WLTodayNewsCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        selectionStyle = .none
         // Initialization code
     }
 
@@ -47,10 +48,10 @@ class WLTodayNewsCell: UITableViewCell {
         layoutSubviews()
     }
     
-    func bookmarkArticle() {
-        if let article = WLCoreDataManager.shared.getArticle(identifier: idetifier) {
-            article.isBookmark = !article.isBookmark
-            btnBookmark.isSelected = article.isBookmark
+    func bookmarkNews() {
+        if let news = WLCoreDataManager.shared.getNews(identifier: idetifier) {
+            news.isBookmark = !news.isBookmark
+            btnBookmark.isSelected = news.isBookmark
             WLCoreDataManager.shared.saveContext()
         }
     }
@@ -94,7 +95,7 @@ extension WLTodayNewsCell : CellConfigurable {
             let brand = article.brand!.firstObject as! WLBrand
             imgArticle.backgroundColor = UIColor.init(hexString:brand.theme!.cellBackgroundColor!)
             btnBookmark.isSelected = article.isBookmark
-            btnBookmark.addTarget(self, action: #selector(bookmarkArticle), for: .touchUpInside)
+            btnBookmark.addTarget(self, action: #selector(bookmarkNews), for: .touchUpInside)
             idetifier = article.identifier!
             calculateHeight()
             

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		C347698020F0ED3C89CB5E7F /* Pods_WhiteLabelApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D90A42867E0689B47DA5D8D9 /* Pods_WhiteLabelApp.framework */; };
+		CC07D9EB1F2890F900BC0844 /* NSURL+URLPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC07D9EA1F2890F900BC0844 /* NSURL+URLPreview.swift */; };
+		CC07D9EF1F28A03600BC0844 /* WLLinkDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC07D9EE1F28A03600BC0844 /* WLLinkDetailViewController.swift */; };
 		CC17C9651EA5EE5B001C1BBF /* WLAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC17C9641EA5EE5B001C1BBF /* WLAppDelegate.swift */; };
 		CC17C9671EA5EE5B001C1BBF /* WLNewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC17C9661EA5EE5B001C1BBF /* WLNewsViewController.swift */; };
 		CC17C96A1EA5EE5B001C1BBF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC17C9681EA5EE5B001C1BBF /* Main.storyboard */; };
@@ -43,8 +45,18 @@
 		CC8469511EAA21910011607F /* WLConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC8469501EAA21910011607F /* WLConstants.swift */; };
 		CCAA68A51EAF5938006B530B /* WLNewsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAA68A41EAF5938006B530B /* WLNewsDetailViewController.swift */; };
 		CCAA68A71EAF9082006B530B /* WLNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCAA68A61EAF9082006B530B /* WLNavigationController.swift */; };
+		CCAFFC331F3DA4ED00D4F8D5 /* FrankRuhlLibre-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CCAFFC2E1F3DA4ED00D4F8D5 /* FrankRuhlLibre-Black.ttf */; };
+		CCAFFC341F3DA4ED00D4F8D5 /* FrankRuhlLibre-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CCAFFC2F1F3DA4ED00D4F8D5 /* FrankRuhlLibre-Bold.ttf */; };
+		CCAFFC351F3DA4ED00D4F8D5 /* FrankRuhlLibre-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CCAFFC301F3DA4ED00D4F8D5 /* FrankRuhlLibre-Light.ttf */; };
+		CCAFFC361F3DA4ED00D4F8D5 /* FrankRuhlLibre-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CCAFFC311F3DA4ED00D4F8D5 /* FrankRuhlLibre-Medium.ttf */; };
+		CCAFFC371F3DA4ED00D4F8D5 /* FrankRuhlLibre-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CCAFFC321F3DA4ED00D4F8D5 /* FrankRuhlLibre-Regular.ttf */; };
 		CCB104371EA60DE20092A673 /* WLDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CCB104351EA60DE20092A673 /* WLDataModel.xcdatamodeld */; };
 		CCB1043A1EA613E10092A673 /* WLCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB104391EA613E10092A673 /* WLCoreDataManager.swift */; };
+		CCC738A01F20F1C5001627F9 /* WLLink+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC7389C1F20F1C5001627F9 /* WLLink+CoreDataClass.swift */; };
+		CCC738A11F20F1C5001627F9 /* WLLink+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC7389D1F20F1C5001627F9 /* WLLink+CoreDataProperties.swift */; };
+		CCC738A21F20F1C5001627F9 /* WLNews+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC7389E1F20F1C5001627F9 /* WLNews+CoreDataClass.swift */; };
+		CCC738A31F20F1C5001627F9 /* WLNews+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC7389F1F20F1C5001627F9 /* WLNews+CoreDataProperties.swift */; };
+		CCC738A51F20F28F001627F9 /* WLLink+Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC738A41F20F28F001627F9 /* WLLink+Entry.swift */; };
 		CCCA01211EB9DDA10001A2A1 /* WLTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCA01201EB9DDA10001A2A1 /* WLTableHeaderView.swift */; };
 		CCCA01231EB9DDB60001A2A1 /* WLTableHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CCCA01221EB9DDB60001A2A1 /* WLTableHeaderView.xib */; };
 		CCCA01261EB9E8770001A2A1 /* WLTodayNewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCA01241EB9E8770001A2A1 /* WLTodayNewsCell.swift */; };
@@ -53,11 +65,14 @@
 		CCCF42021EA7A8A4000C2A8B /* PreferenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCF42011EA7A8A4000C2A8B /* PreferenceManager.swift */; };
 		CCCF42041EA7B0F8000C2A8B /* WLArticle+Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCF42031EA7B0F8000C2A8B /* WLArticle+Entry.swift */; };
 		CCCF42061EA7B7A4000C2A8B /* WLAsset+Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCCF42051EA7B7A4000C2A8B /* WLAsset+Entry.swift */; };
+		CCF1530D1F27880A0035F092 /* iFrame.html in Resources */ = {isa = PBXBuildFile; fileRef = CCF1530C1F27880A0035F092 /* iFrame.html */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		86930E1DC202AFCC3A6C248C /* Pods-WhiteLabelApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhiteLabelApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-WhiteLabelApp/Pods-WhiteLabelApp.release.xcconfig"; sourceTree = "<group>"; };
 		B2F7EBD5E7B5C51CA2779270 /* Pods-WhiteLabelApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhiteLabelApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WhiteLabelApp/Pods-WhiteLabelApp.debug.xcconfig"; sourceTree = "<group>"; };
+		CC07D9EA1F2890F900BC0844 /* NSURL+URLPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURL+URLPreview.swift"; sourceTree = "<group>"; };
+		CC07D9EE1F28A03600BC0844 /* WLLinkDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WLLinkDetailViewController.swift; sourceTree = "<group>"; };
 		CC17C9611EA5EE5B001C1BBF /* WhiteLabelApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhiteLabelApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC17C9641EA5EE5B001C1BBF /* WLAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WLAppDelegate.swift; sourceTree = "<group>"; };
 		CC17C9661EA5EE5B001C1BBF /* WLNewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WLNewsViewController.swift; path = ../../WLNewsViewController.swift; sourceTree = "<group>"; };
@@ -95,8 +110,18 @@
 		CC8469501EAA21910011607F /* WLConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WLConstants.swift; path = ../../UI/WLConstants.swift; sourceTree = "<group>"; };
 		CCAA68A41EAF5938006B530B /* WLNewsDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WLNewsDetailViewController.swift; sourceTree = "<group>"; };
 		CCAA68A61EAF9082006B530B /* WLNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WLNavigationController.swift; sourceTree = "<group>"; };
+		CCAFFC2E1F3DA4ED00D4F8D5 /* FrankRuhlLibre-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FrankRuhlLibre-Black.ttf"; sourceTree = "<group>"; };
+		CCAFFC2F1F3DA4ED00D4F8D5 /* FrankRuhlLibre-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FrankRuhlLibre-Bold.ttf"; sourceTree = "<group>"; };
+		CCAFFC301F3DA4ED00D4F8D5 /* FrankRuhlLibre-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FrankRuhlLibre-Light.ttf"; sourceTree = "<group>"; };
+		CCAFFC311F3DA4ED00D4F8D5 /* FrankRuhlLibre-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FrankRuhlLibre-Medium.ttf"; sourceTree = "<group>"; };
+		CCAFFC321F3DA4ED00D4F8D5 /* FrankRuhlLibre-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FrankRuhlLibre-Regular.ttf"; sourceTree = "<group>"; };
 		CCB104361EA60DE20092A673 /* WLDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WLDataModel.xcdatamodel; sourceTree = "<group>"; };
 		CCB104391EA613E10092A673 /* WLCoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WLCoreDataManager.swift; sourceTree = "<group>"; };
+		CCC7389C1F20F1C5001627F9 /* WLLink+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WLLink+CoreDataClass.swift"; sourceTree = "<group>"; };
+		CCC7389D1F20F1C5001627F9 /* WLLink+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WLLink+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		CCC7389E1F20F1C5001627F9 /* WLNews+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WLNews+CoreDataClass.swift"; sourceTree = "<group>"; };
+		CCC7389F1F20F1C5001627F9 /* WLNews+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WLNews+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		CCC738A41F20F28F001627F9 /* WLLink+Entry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WLLink+Entry.swift"; sourceTree = "<group>"; };
 		CCCA01201EB9DDA10001A2A1 /* WLTableHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WLTableHeaderView.swift; sourceTree = "<group>"; };
 		CCCA01221EB9DDB60001A2A1 /* WLTableHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WLTableHeaderView.xib; sourceTree = "<group>"; };
 		CCCA01241EB9E8770001A2A1 /* WLTodayNewsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WLTodayNewsCell.swift; sourceTree = "<group>"; };
@@ -105,6 +130,7 @@
 		CCCF42011EA7A8A4000C2A8B /* PreferenceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferenceManager.swift; sourceTree = "<group>"; };
 		CCCF42031EA7B0F8000C2A8B /* WLArticle+Entry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WLArticle+Entry.swift"; sourceTree = "<group>"; };
 		CCCF42051EA7B7A4000C2A8B /* WLAsset+Entry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WLAsset+Entry.swift"; sourceTree = "<group>"; };
+		CCF1530C1F27880A0035F092 /* iFrame.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = iFrame.html; sourceTree = "<group>"; };
 		D90A42867E0689B47DA5D8D9 /* Pods_WhiteLabelApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WhiteLabelApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -135,6 +161,14 @@
 				86930E1DC202AFCC3A6C248C /* Pods-WhiteLabelApp.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		CC07D9ED1F289C1E00BC0844 /* LinkDetail */ = {
+			isa = PBXGroup;
+			children = (
+				CC07D9EE1F28A03600BC0844 /* WLLinkDetailViewController.swift */,
+			);
+			path = LinkDetail;
 			sourceTree = "<group>";
 		};
 		CC17C9581EA5EE5B001C1BBF = {
@@ -186,8 +220,8 @@
 				CC5B64601EA63FF2000D0BE0 /* WLYesterdayNewsCell.xib */,
 				CCCA01241EB9E8770001A2A1 /* WLTodayNewsCell.swift */,
 				CCCA01251EB9E8770001A2A1 /* WLTodayNewsCell.xib */,
-				CC21E96D1EBCA24300F25553 /* WLFullScreenImageCell.xib */,
 				CC21E9701EBCA3B000F25553 /* WLFullScreenImageCell.swift */,
+				CC21E96D1EBCA24300F25553 /* WLFullScreenImageCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -195,6 +229,7 @@
 		CC5BE20B1EA5FDAE00E09EDA /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				CC07D9ED1F289C1E00BC0844 /* LinkDetail */,
 				CC7DE1AB1EBB20A00066267F /* Bookmark */,
 				CCAA68A61EAF9082006B530B /* WLNavigationController.swift */,
 				CCAA68A31EAF590A006B530B /* NewsDetail */,
@@ -210,6 +245,7 @@
 				CCCF42011EA7A8A4000C2A8B /* PreferenceManager.swift */,
 				CC5BE20E1EA6023700E09EDA /* Model */,
 				CC5BE20D1EA6022A00E09EDA /* WebAPI */,
+				CC07D9EA1F2890F900BC0844 /* NSURL+URLPreview.swift */,
 			);
 			path = BL;
 			sourceTree = "<group>";
@@ -227,6 +263,10 @@
 		CC5BE20E1EA6023700E09EDA /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				CCC7389C1F20F1C5001627F9 /* WLLink+CoreDataClass.swift */,
+				CCC7389D1F20F1C5001627F9 /* WLLink+CoreDataProperties.swift */,
+				CCC7389E1F20F1C5001627F9 /* WLNews+CoreDataClass.swift */,
+				CCC7389F1F20F1C5001627F9 /* WLNews+CoreDataProperties.swift */,
 				CC21E9601EBC9CB300F25553 /* WLArticleLayout+CoreDataClass.swift */,
 				CC21E9681EBC9CDA00F25553 /* WLArticleLayout+Entry.swift */,
 				CC21E9611EBC9CB300F25553 /* WLArticleLayout+CoreDataProperties.swift */,
@@ -238,6 +278,7 @@
 				CC3181311EA638A30076D39A /* WLArticle+CoreDataClass.swift */,
 				CC3181321EA638A30076D39A /* WLArticle+CoreDataProperties.swift */,
 				CCCF42031EA7B0F8000C2A8B /* WLArticle+Entry.swift */,
+				CCC738A41F20F28F001627F9 /* WLLink+Entry.swift */,
 				CC3181271EA61C630076D39A /* WLAsset+CoreDataClass.swift */,
 				CC3181281EA61C630076D39A /* WLAsset+CoreDataProperties.swift */,
 				CCCF42051EA7B7A4000C2A8B /* WLAsset+Entry.swift */,
@@ -272,9 +313,15 @@
 			children = (
 				CC2DAAAA1EDED73700579AA9 /* WebView.bundle */,
 				CC5B64671EA66512000D0BE0 /* Lora-Bold.ttf */,
+				CCAFFC2E1F3DA4ED00D4F8D5 /* FrankRuhlLibre-Black.ttf */,
+				CCAFFC2F1F3DA4ED00D4F8D5 /* FrankRuhlLibre-Bold.ttf */,
+				CCAFFC301F3DA4ED00D4F8D5 /* FrankRuhlLibre-Light.ttf */,
+				CCAFFC311F3DA4ED00D4F8D5 /* FrankRuhlLibre-Medium.ttf */,
+				CCAFFC321F3DA4ED00D4F8D5 /* FrankRuhlLibre-Regular.ttf */,
 				CC17C9641EA5EE5B001C1BBF /* WLAppDelegate.swift */,
 				CC3181351EA63A200076D39A /* WLDataSource.swift */,
 				CCB104351EA60DE20092A673 /* WLDataModel.xcdatamodeld */,
+				CCF1530C1F27880A0035F092 /* iFrame.html */,
 			);
 			name = SupportFiles;
 			sourceTree = "<group>";
@@ -360,16 +407,22 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCAFFC371F3DA4ED00D4F8D5 /* FrankRuhlLibre-Regular.ttf in Resources */,
 				CCCA01231EB9DDB60001A2A1 /* WLTableHeaderView.xib in Resources */,
+				CCAFFC331F3DA4ED00D4F8D5 /* FrankRuhlLibre-Black.ttf in Resources */,
 				CC21E96F1EBCA24300F25553 /* WLFullScreenImageCell.xib in Resources */,
 				CC6B35FA1EAA418A007D4DBC /* Lora-Bold.ttf in Resources */,
+				CCAFFC361F3DA4ED00D4F8D5 /* FrankRuhlLibre-Medium.ttf in Resources */,
 				CC2DAAAB1EDED73700579AA9 /* WebView.bundle in Resources */,
 				CC17C96F1EA5EE5B001C1BBF /* LaunchScreen.storyboard in Resources */,
 				CC17C96C1EA5EE5B001C1BBF /* Assets.xcassets in Resources */,
 				CCCA01271EB9E8770001A2A1 /* WLTodayNewsCell.xib in Resources */,
 				CC17C96A1EA5EE5B001C1BBF /* Main.storyboard in Resources */,
+				CCAFFC341F3DA4ED00D4F8D5 /* FrankRuhlLibre-Bold.ttf in Resources */,
+				CCAFFC351F3DA4ED00D4F8D5 /* FrankRuhlLibre-Light.ttf in Resources */,
 				CC7DE1B21EBB2FD60066267F /* WLEmtyCell.xib in Resources */,
 				CC5B64621EA63FF2000D0BE0 /* WLYesterdayNewsCell.xib in Resources */,
+				CCF1530D1F27880A0035F092 /* iFrame.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -443,6 +496,8 @@
 			files = (
 				CC31812D1EA61C630076D39A /* WLBrand+CoreDataClass.swift in Sources */,
 				CC7DE1AE1EBB20D20066267F /* WLBookmarksViewController.swift in Sources */,
+				CCC738A31F20F1C5001627F9 /* WLNews+CoreDataProperties.swift in Sources */,
+				CCC738A51F20F28F001627F9 /* WLLink+Entry.swift in Sources */,
 				CC31812B1EA61C630076D39A /* WLAsset+CoreDataClass.swift in Sources */,
 				CC21E9641EBC9CB300F25553 /* WLArticleLayout+CoreDataClass.swift in Sources */,
 				CCAA68A51EAF5938006B530B /* WLNewsDetailViewController.swift in Sources */,
@@ -450,6 +505,7 @@
 				CC21E9661EBC9CB300F25553 /* WLLayoutType+CoreDataClass.swift in Sources */,
 				CCAA68A71EAF9082006B530B /* WLNavigationController.swift in Sources */,
 				CC21E9651EBC9CB300F25553 /* WLArticleLayout+CoreDataProperties.swift in Sources */,
+				CCC738A21F20F1C5001627F9 /* WLNews+CoreDataClass.swift in Sources */,
 				CCCA01261EB9E8770001A2A1 /* WLTodayNewsCell.swift in Sources */,
 				CCCF42061EA7B7A4000C2A8B /* WLAsset+Entry.swift in Sources */,
 				CC3181361EA63A200076D39A /* WLDataSource.swift in Sources */,
@@ -459,12 +515,16 @@
 				CC17C9671EA5EE5B001C1BBF /* WLNewsViewController.swift in Sources */,
 				CC7DE1B11EBB2FD60066267F /* WLEmtyCell.swift in Sources */,
 				CC3181331EA638A30076D39A /* WLArticle+CoreDataClass.swift in Sources */,
+				CC07D9EB1F2890F900BC0844 /* NSURL+URLPreview.swift in Sources */,
+				CC07D9EF1F28A03600BC0844 /* WLLinkDetailViewController.swift in Sources */,
+				CCC738A01F20F1C5001627F9 /* WLLink+CoreDataClass.swift in Sources */,
 				CCCF42041EA7B0F8000C2A8B /* WLArticle+Entry.swift in Sources */,
 				CC3181301EA6236A0076D39A /* WLWebApi.swift in Sources */,
 				CC5BE2121EA6028300E09EDA /* WLBrandTheme.swift in Sources */,
 				CC5B64611EA63FF2000D0BE0 /* WLYesterdayNewsCell.swift in Sources */,
 				CCCF0C801EA9E58200936592 /* WLLaunchViewController.swift in Sources */,
 				CC31812E1EA61C630076D39A /* WLBrand+CoreDataProperties.swift in Sources */,
+				CCC738A11F20F1C5001627F9 /* WLLink+CoreDataProperties.swift in Sources */,
 				CCCF42021EA7A8A4000C2A8B /* PreferenceManager.swift in Sources */,
 				CC21E9691EBC9CDA00F25553 /* WLArticleLayout+Entry.swift in Sources */,
 				CCCA01211EB9DDA10001A2A1 /* WLTableHeaderView.swift in Sources */,

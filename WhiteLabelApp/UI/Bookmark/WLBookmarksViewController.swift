@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import ChameleonFramework
 
 class WLBookmarksViewController: UIViewController {
 
@@ -19,7 +20,7 @@ class WLBookmarksViewController: UIViewController {
     }()
     
     lazy var dataSource:WLDataSource = {
-        let resultsController = try! self.dataManager.fetchedResultsController(forContentType: WLArticle.self, predicate: self.predicate, sortDescriptors: [NSSortDescriptor(key: "date", ascending: false)], sectionName:nil)
+        let resultsController = try! self.dataManager.fetchedResultsController(forContentType: WLNews.self, predicate: self.predicate, sortDescriptors: [NSSortDescriptor(key: "date", ascending: false)], sectionName:nil)
         return WLDataSource(fetchedResultsController: resultsController, tableView: self.tableView)
     }()
     
@@ -70,9 +71,15 @@ class WLBookmarksViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let vc = segue.destination as? WLNewsDetailViewController, let cell = sender as? CellConfigurable {
-            vc.dataObjectIdetifier = cell.dataObjectIdentifier
-            vc.image = cell.imageArticle
+        if segue.identifier == "BookmarkArticleDetailSegue" {
+            if let vc = segue.destination as? WLNewsDetailViewController, let cell = sender as? CellConfigurable {
+                vc.dataObjectIdetifier = cell.dataObjectIdentifier
+                vc.image = cell.imageArticle
+            }
+        } else {
+            if let vc = segue.destination as? WLLinkDetailViewController, let cell = sender as? CellConfigurable {
+                vc.dataObjectIdetifier = cell.dataObjectIdentifier
+            }
         }
     }
     
@@ -97,7 +104,12 @@ extension WLBookmarksViewController: UITableViewDelegate, UITableViewDataSource 
             cell.selectedBackgroundView? = v
             return cell
         }
-        let cell = tableView.dequeueReusableCell(withIdentifier: "WLYesterdayNewsCell", for: indexPath)
+        
+        let frameOfGradient = CGRect(x:0, y:0, width: UIApplication.shared.statusBarFrame.width, height: (CGFloat(tableView.frame.height / 1.95).rounded(.up)) - 44 - 80)
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "WLYesterdayNewsCell", for: indexPath) as! WLYesterdayNewsCell
+        cell.gradientView.backgroundColor = GradientColor(.topToBottom, frame:frameOfGradient, colors:  [UIColor.init(hexString:"2e343e")!.withAlphaComponent(0.0) , UIColor.init(hexString:"2e343e")!.withAlphaComponent(2.0)])
+        cell.btnContainerView.backgroundColor = UIColor.init(hexString:"2e343e")
         let dataObject = dataSource.fetchedResultsController.object(at: indexPath) as! NSManagedObject
         cell.tag = indexPath.row
         (cell as! CellConfigurable).configure(dataObject: dataObject)
@@ -112,7 +124,14 @@ extension WLBookmarksViewController: UITableViewDelegate, UITableViewDataSource 
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as? CellConfigurable
-        performSegue(withIdentifier: "BookmarkDetailSegue", sender: cell)
+        let dataObject = dataSource.fetchedResultsController.object(at: indexPath) as! WLNews
+        if dataObject is WLArticle {
+            performSegue(withIdentifier: "BookmarkArticleDetailSegue", sender: cell)
+        } else if dataObject is WLLink {
+            performSegue(withIdentifier: "BookmarkLinkDetailSegue", sender: cell)
+            
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -124,7 +143,7 @@ extension WLBookmarksViewController: UITableViewDelegate, UITableViewDataSource 
     
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return CGFloat(tableView.frame.height / 2.5).rounded(.up)
+        return CGFloat(tableView.frame.height / 1.95).rounded(.up)
     }
 }
 

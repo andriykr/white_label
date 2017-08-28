@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body, html {
+height: 100%;
+margin: 2px;
+}
+</style>
+
+<script>
+
+function start(){
+var iframe = document.body.appendChild(document.createElement("iframe"));
+
+iframe.style.cssText = "width: 100%; height: 100%; background-color: yellow; border: 1px solid yellow; overflow: hidden";
+iframe.src = "html_address";
+}
+
+</script>
+
+</head>
+<body onload='start()'>
+</body>
+</html>

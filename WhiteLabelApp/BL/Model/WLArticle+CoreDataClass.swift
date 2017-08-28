@@ -11,6 +11,6 @@ import CoreData
 import CoreData
 import ContentfulPersistence
 
-public class WLArticle: NSManagedObject, Resource {
+public class WLArticle: WLNews{
 
 }

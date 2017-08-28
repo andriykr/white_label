@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>AMScrollingNavbar.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>ChameleonFramework.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -35,6 +40,11 @@
 			<false/>
 		</dict>
 		<key>Interstellar.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Kanna.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -72,12 +82,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>389809371976DFC9735F4D68E3F5D634</key>
+		<key>38E4E1FBF57AFAFC5BDFAB9B7A179C77</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>38E4E1FBF57AFAFC5BDFAB9B7A179C77</key>
+		<key>40FA5B73DCDD5CF1AB448F23704FD4F5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4D10E4FF5A483B852B47CCA0B994E340</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -92,12 +107,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>8E15DE1E8692CA9C3A90D91070046B00</key>
+		<key>923FE28FC8B985C27EC61D0830DB3FC1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>923FE28FC8B985C27EC61D0830DB3FC1</key>
+		<key>9B7BEF22A2D2E5C2E4174836475BC47B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -107,12 +122,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E313CEB3EB21E6E79555A9B59898C1D6</key>
+		<key>BC4D0F362D19FEBF77515ECE5B21A9E0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E4DA18A87819F0EE9AF1C6E536B0D220</key>
+		<key>BF0AEA85C6172E87E21043610F378F67</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E313CEB3EB21E6E79555A9B59898C1D6</key>
 		<dict>
 			<key>primary</key>
 			<true/>

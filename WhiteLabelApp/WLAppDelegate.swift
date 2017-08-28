@@ -1,3 +1,4 @@
+
 //
 //  AppDelegate.swift
 //  WhiteLabelApp
@@ -51,10 +52,10 @@ class WLAppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         let queryParameters = [
-            "content_type": ArticleContetntTypeID,
+            "content_type": LinkContentTypeID,
             "fields.brand.sys.id": BRAND_ID,
             "include": 2] as [String : Any]
-        WLWebApi.shared.getArticles(queryParameters, brand:WLCoreDataManager.shared.getBrand(identifier: BRAND_ID)!) { (articles, error) in
+        WLWebApi.shared.getNews(queryParameters, brand:WLCoreDataManager.shared.getBrand(identifier: BRAND_ID)!) { (links, error) in
             
         }
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.

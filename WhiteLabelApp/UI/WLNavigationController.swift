@@ -8,7 +8,9 @@
 
 import UIKit
 import ChameleonFramework
-class WLNavigationController: UINavigationController {
+import AMScrollingNavbar
+
+class WLNavigationController: ScrollingNavigationController {
     
     // MARK: - Lifecycle
     
@@ -58,6 +60,17 @@ class WLNavigationController: UINavigationController {
     
     required init?(coder aDecoder: NSCoder) { super.init(coder: aDecoder) }
     
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        guard gestureRecognizer == interactivePopGestureRecognizer else {
+            return true // default value
+        }
+        
+        // Disable pop gesture in two situations:
+        // 1) when the pop animation is in progress
+        // 2) when user swipes quickly a couple of times and animations don't have time to be performed
+        return viewControllers.count > 1 && duringPushAnimation == false
+    }
+
 }
 
 // MARK: - UINavigationControllerDelegate
@@ -73,17 +86,6 @@ extension WLNavigationController: UINavigationControllerDelegate {
 
 // MARK: - UIGestureRecognizerDelegate
 
-extension WLNavigationController: UIGestureRecognizerDelegate {
     
-    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        guard gestureRecognizer == interactivePopGestureRecognizer else {
-            return true // default value
-        }
-        
-        // Disable pop gesture in two situations:
-        // 1) when the pop animation is in progress
-        // 2) when user swipes quickly a couple of times and animations don't have time to be performed
-        return viewControllers.count > 1 && duringPushAnimation == false
-    }
-}
+
 

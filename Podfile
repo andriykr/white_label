@@ -15,4 +15,6 @@ target 'WhiteLabelApp' do
 	pod "ESPullToRefresh"
 	pod 'Fabric'
 	pod 'Crashlytics'
+	pod 'Kanna' 
+	pod 'AMScrollingNavbar'
 end

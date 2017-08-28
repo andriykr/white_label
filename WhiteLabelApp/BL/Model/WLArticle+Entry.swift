@@ -13,7 +13,7 @@ import CoreData
 extension WLArticle {
     static func from(entry:Entry) -> WLArticle? {
         var article:WLArticle! = nil
-        if let a = WLCoreDataManager.shared.getArticle(identifier:(entry.identifier)) {
+        if let a = WLCoreDataManager.shared.getNews(identifier:(entry.identifier)) as? WLArticle {
             article = a
         } else {
             article =  WLArticle.init(entity: NSEntityDescription.entity(forEntityName: "WLArticle", in: WLCoreDataManager.shared.managedObjectContext)!,
@@ -30,7 +30,7 @@ extension WLArticle {
         if let imgAsset = entry.fields["headerimage"] as? Asset {
         if let img = WLAsset.from(entry: imgAsset) {
             article.headerimage = img
-            img.articleInverse = article
+            img.news = article
         }
         }
         article.shortText = entry.fields["shortText"] as? String

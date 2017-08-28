@@ -12,13 +12,24 @@ import CoreData
 import Contentful
 import ContentfulPersistence
 
-
+extension NSNotification.Name {
+    static let linkReceived = NSNotification.Name("Link data received")
+}
 let BrandContentTypeId = "brand"
 let ArticleContetntTypeID = "article"
-class WLCoreDataManager {
+let LinkContentTypeID = "link"
+class WLCoreDataManager:NSObject {
     // MARK: - Core Data stack
     static let shared = WLCoreDataManager()
+   
+   private override init() {
+        super.init()
+        NotificationCenter.default.addObserver(self, selector: #selector(updateLink(notification:)), name: .linkReceived, object: nil)
+    }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: .linkReceived, object: nil)
+    }
     private lazy var applicationDocumentsDirectory: URL = {
         let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return urls[urls.count-1]
@@ -70,6 +81,23 @@ class WLCoreDataManager {
         return CoreDataStore(context: self.managedObjectContext)
     }()
     
+    func updateLink(notification:NSNotification) {
+        guard let userInfo = notification.userInfo else { return }
+        guard let identifier = userInfo["identifier"] as? String else {return}
+        guard let link = getNews(identifier: identifier) as? WLLink else {return}
+        if let title = userInfo["title"] as? String {
+            link.headline = title
+        }
+        
+        if let description = userInfo["description"] as? String{
+            link.shortText = description
+        }
+        
+        if let urlImage = userInfo["previewImage"] as? String {
+            link.image = urlImage
+        }
+        saveContext()
+    }
     
     func fetchedResultsController(forContentType type: Any.Type, predicate: NSPredicate, sortDescriptors: [NSSortDescriptor], sectionName:String?) throws -> NSFetchedResultsController<NSFetchRequestResult> {
         let fetchRequest = try store.fetchRequest(for: type, predicate: predicate)
@@ -79,12 +107,14 @@ class WLCoreDataManager {
     
     func performSynchronization(completion: @escaping (Bool, _ error:Error?) -> ()) {
         let queryParameters = [
-            "content_type": ArticleContetntTypeID,
+            "content_type": LinkContentTypeID,
             "fields.brand.sys.id": BRAND_ID,
             "include": 2] as [String : Any]
-        WLWebApi.shared.getArticles(queryParameters, brand:getBrand(identifier: BRAND_ID)!) { (articles, error) in
+        
+        WLWebApi.shared.getNews(queryParameters, brand:getBrand(identifier: BRAND_ID)!) { (articles, error) in
             if error == nil {
                 completion(true, nil)
+                
             } else {
                 completion(false, error)
             }
@@ -105,13 +135,13 @@ class WLCoreDataManager {
         }
     }
     
-    func getArticle(identifier:String) -> WLArticle? {
-        let fetchRequest:NSFetchRequest<WLArticle> = WLArticle.fetchRequest()
+    func getNews(identifier:String) -> WLNews? {
+        let fetchRequest:NSFetchRequest<WLNews> = WLNews.fetchRequest()
         let predicate = NSPredicate.init(format: "identifier = %@", identifier)
         fetchRequest.predicate = predicate
         do {
-            let articles = try WLCoreDataManager.shared.managedObjectContext.fetch(fetchRequest)
-            return articles.first
+            let news = try WLCoreDataManager.shared.managedObjectContext.fetch(fetchRequest)
+            return news.first
         } catch _ as NSError {
             return nil
         }
@@ -128,8 +158,8 @@ class WLCoreDataManager {
             return nil
         }
     }
-    func deleteArticles(arrayOfIds:[String]) {
-        let fetchRequest:NSFetchRequest<WLArticle> = WLArticle.fetchRequest()
+    func deleteNews(arrayOfIds:[String]) {
+        let fetchRequest:NSFetchRequest<WLNews> = WLNews.fetchRequest()
         let predicate = NSPredicate.init(format: "NOT (identifier IN %@)", arrayOfIds)
         fetchRequest.predicate = predicate
         do {
@@ -142,15 +172,15 @@ class WLCoreDataManager {
         }
     }
     
-    func getLastArticleDate(from:Date) -> Date? {
-        let fetchRequest:NSFetchRequest<WLArticle> = WLArticle.fetchRequest()
+    func getLastNewsDate(from:Date) -> Date? {
+        let fetchRequest:NSFetchRequest<WLNews> = WLNews.fetchRequest()
         let predicate = NSPredicate.init(format: "date < %@", from as CVarArg)
         fetchRequest.predicate = predicate
         let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
         fetchRequest.sortDescriptors = [sortDescriptor]
         do {
-            let articles = try WLCoreDataManager.shared.managedObjectContext.fetch(fetchRequest)
-            return articles.first?.date
+            let news = try WLCoreDataManager.shared.managedObjectContext.fetch(fetchRequest)
+            return news.first?.date
         } catch {
             return nil
         }

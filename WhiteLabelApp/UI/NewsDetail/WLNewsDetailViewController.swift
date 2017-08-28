@@ -9,6 +9,8 @@
 import UIKit
 import WebKit
 import MMMarkdown
+import AMScrollingNavbar
+
 class WLNewsDetailViewController: UIViewController {
     
     var dataObjectIdetifier = ""
@@ -38,68 +40,70 @@ class WLNewsDetailViewController: UIViewController {
             ]
             view.backgroundColor =  UIColor.init(hexString: theme.bodyBackgroundColor!)!
         }
-  
-        article = WLCoreDataManager.shared.getArticle(identifier: dataObjectIdetifier)
-        let brand = article.brand!.firstObject as! WLBrand
-        imgArticle.backgroundColor = UIColor.init(hexString:brand.theme!.cellBackgroundColor!)
-        let articleText = article.body!
-        let dateFormatter = DateFormatter.init()
-        dateFormatter.dateFormat = "dd MMM YYYY"
-        lblDate.text = dateFormatter.string(from: article.date!)
-        btnBookmark.isSelected = article.isBookmark
-        lblTitle.text = article.headline
-        do {
-            
-            
-            let preferences = WKPreferences()
-            preferences.javaScriptEnabled = true
-            let configuration = WKWebViewConfiguration()
-            configuration.preferences = preferences
-            webView = WKWebView.init(frame: CGRect.zero, configuration:configuration)
-//            webView.isUserInteractionEnabled = false
-            
-            webView.scrollView.delegate = self
-            webView.translatesAutoresizingMaskIntoConstraints = false
-            webView.scrollView.maximumZoomScale = 1.0
-            webView.scrollView.maximumZoomScale = 1.0
-            webView.navigationDelegate = self
-            for subview in webView.scrollView.subviews {
+        if let navigationController = navigationController as? ScrollingNavigationController {
+            navigationController.followScrollView(mainScrollView, delay: 50.0)
+        }
+        if let article = WLCoreDataManager.shared.getNews(identifier: dataObjectIdetifier) as? WLArticle {
+            let brand = article.brand!.firstObject as! WLBrand
+            imgArticle.backgroundColor = UIColor.init(hexString:brand.theme!.cellBackgroundColor!)
+            let articleText = article.body!
+            let dateFormatter = DateFormatter.init()
+            dateFormatter.dateFormat = "dd MMM YYYY"
+            lblDate.text = dateFormatter.string(from: article.date!)
+            btnBookmark.isSelected = article.isBookmark
+            lblTitle.text = article.headline
+            do {
+                let preferences = WKPreferences()
+                preferences.javaScriptEnabled = true
+                let configuration = WKWebViewConfiguration()
+                configuration.preferences = preferences
+                webView = WKWebView.init(frame: CGRect.zero, configuration:configuration)
+                //            webView.isUserInteractionEnabled = false
                 
-                // iterate over recognizers of subview
-                for recognizer in subview.gestureRecognizers ?? [] {
+                webView.scrollView.delegate = self
+                webView.translatesAutoresizingMaskIntoConstraints = false
+                webView.scrollView.maximumZoomScale = 1.0
+                webView.scrollView.maximumZoomScale = 1.0
+                webView.navigationDelegate = self
+                for subview in webView.scrollView.subviews {
                     
-                    // check the recognizer is  a UITapGestureRecognizer
-                    if recognizer.isKind(of: UITapGestureRecognizer.self) {
+                    // iterate over recognizers of subview
+                    for recognizer in subview.gestureRecognizers ?? [] {
                         
-                        // cast the UIGestureRecognizer as UITapGestureRecognizer
-                        let tapRecognizer = recognizer as! UITapGestureRecognizer
-                        
-                        // check if it is a 1-finger double-tap
-                        if tapRecognizer.numberOfTapsRequired == 2 && tapRecognizer.numberOfTouchesRequired == 1 {
+                        // check the recognizer is  a UITapGestureRecognizer
+                        if recognizer.isKind(of: UITapGestureRecognizer.self) {
                             
-                            // remove the recognizer
-                            subview.removeGestureRecognizer(recognizer)
+                            // cast the UIGestureRecognizer as UITapGestureRecognizer
+                            let tapRecognizer = recognizer as! UITapGestureRecognizer
+                            
+                            // check if it is a 1-finger double-tap
+                            if tapRecognizer.numberOfTapsRequired == 2 && tapRecognizer.numberOfTouchesRequired == 1 {
+                                
+                                // remove the recognizer
+                                subview.removeGestureRecognizer(recognizer)
+                            }
                         }
                     }
                 }
+                try loadHTMLView(articleText, view: webView)
+                newsContainer.addSubview(webView)
+                addObserver(self, forKeyPath: "webView.scrollView.contentSize", options: .new, context: nil)
+                let vConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[view]-0-|", options: .alignAllCenterY, metrics: nil, views: ["view":webView])
+                let hConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[view]-0-|", options: .alignAllCenterX, metrics: nil, views: ["view":webView])
+                newsContainer.addConstraints(vConstraints)
+                newsContainer.addConstraints(hConstraints)
+            } catch (let error) {
+                appDelegate.showAlertError(controller: self, title: "Error", message: error.localizedDescription, actions: nil)
             }
-            try loadHTMLView(articleText, view: webView)
-            newsContainer.addSubview(webView)
-            addObserver(self, forKeyPath: "webView.scrollView.contentSize", options: .new, context: nil)
-            let vConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[view]-0-|", options: .alignAllCenterY, metrics: nil, views: ["view":webView])
-            let hConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[view]-0-|", options: .alignAllCenterX, metrics: nil, views: ["view":webView])
-            newsContainer.addConstraints(vConstraints)
-            newsContainer.addConstraints(hConstraints)
-        } catch (let error) {
-            appDelegate.showAlertError(controller: self, title: "Error", message: error.localizedDescription, actions: nil)
+            
+            imgArticle.image = image
+            
+            self.navigationController?.isNavigationBarHidden = false
+            imgArticle.layer.masksToBounds = true
+            
+            view.backgroundColor = .clear
+            self.article = article
         }
-        
-        imgArticle.image = image
-        
-        self.navigationController?.isNavigationBarHidden = false
-        imgArticle.layer.masksToBounds = true
-
-        view.backgroundColor = .clear
         // Do any additional setup after loading the view.
     }
 

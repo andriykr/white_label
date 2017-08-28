@@ -21,6 +21,7 @@ class WLWebApi {
         client.fetchEntry(identifier: identifier) { (result) in
             switch result {
             case .success(let entry):
+                print(entry)
                 var brand:WLBrand? = nil
                 do {
                     brand = WLBrand.init(entity: NSEntityDescription.entity(forEntityName: "WLBrand", in: WLCoreDataManager.shared.managedObjectContext)!,
@@ -53,52 +54,88 @@ class WLWebApi {
         }
     }
     
-    func getArticles(_ matching:[String:Any], brand:WLBrand, completion:@escaping (_ articles:[WLArticle]?, _ error:Error?) -> Void) {
-        client.fetchEntries(matching: matching) { result in
-            switch result {
-            case .success(let array):
-                var arrayOfIds = [String]()
-                let articles = array.items
-                var result = [WLArticle]()
-                DispatchQueue.main.async {
-                    for articleDic in articles {
-                        arrayOfIds.append(articleDic.identifier)
-                        if let article = WLArticle.from(entry: articleDic) {
-                            let tmpSet = article.brand as? NSMutableOrderedSet
-                            tmpSet?.add(brand)
-                            article.brand = tmpSet
-                            result.append(article)
+    func getNews(_ matching:[String:Any], brand:WLBrand, completion:@escaping (_ links:[WLNews]?, _ error:Error?) -> Void) {
+        client.fetchEntries(matching: matching) { linksResult in
+            switch linksResult {
+            case .success(let arrayOfLinks):
+                var matching = matching
+                matching["content_type"] = ArticleContetntTypeID
+                self.client.fetchEntries(matching: matching, completion: { (articlesResult) in
+                    switch articlesResult {
+                    case .success(let arrayOfArticles):
+                        var arrayOfIds = [String]()
+                        let articles = arrayOfArticles.items
+                        let links = arrayOfLinks.items
+                        var result = [WLNews]()
+                        DispatchQueue.main.sync {
+                            for articleDic in articles {
+                                arrayOfIds.append(articleDic.identifier)
+                                if let article = WLArticle.from(entry: articleDic) {
+                                    let tmpSet = article.brand as? NSMutableOrderedSet
+                                    tmpSet?.add(brand)
+                                    article.brand = tmpSet
+                                    result.append(article)
+                                }
+                            }
+                            for linkDic in links {
+                                arrayOfIds.append(linkDic.identifier)
+                                if let link = WLLink.from(entry: linkDic) {
+                                    let tmpSet = link.brand as? NSMutableOrderedSet
+                                    tmpSet?.add(brand)
+                                    link.brand = tmpSet
+                                    result.append(link)
+                                }
+                            }
+                            WLCoreDataManager.shared.saveContext()
+                            WLCoreDataManager.shared.deleteNews(arrayOfIds: arrayOfIds)
+                            
+                            completion(result,nil)
                         }
+                    case .error(let error):
+                        completion(nil, error)
                     }
-                    WLCoreDataManager.shared.saveContext()
-                    WLCoreDataManager.shared.deleteArticles(arrayOfIds: arrayOfIds)
-                }
-                completion(result, nil)
+                })
             case .error(let error):
                 completion(nil, error)
             }
         }
     }
     
-    
-    
     func getLastDate(_ matching:[String:Any], completion:@escaping (_ date:Date?, _ error:Error?) -> Void) {
-        client.fetchEntries(matching: matching) { result in
-            switch result {
-            case .success(let array):
-                if let entry = array.items.last {
-                    if let updateStr =  entry.sys["updatedAt"] as? String {
-                        let dateFormater = DateFormatter.init()
-                        dateFormater.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSz"
-                        completion(dateFormater.date(from: updateStr), nil)
-                        
+        client.fetchEntries(matching: matching) { resultArticles in
+            switch resultArticles {
+            case .success(let arrayArticles):
+                let dateFormater = DateFormatter.init()
+                dateFormater.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSz"
+                var lastArticleDate = PreferenceManager.shared.lastDate
+                if let articlesEntry = arrayArticles.items.last {
+                    if let updateArticlesStr = articlesEntry.sys["updatedAt"] as? String {
+                        lastArticleDate = dateFormater.date(from: updateArticlesStr)
                     }
-                } else {
-                    if let date = WLCoreDataManager.shared.getLastArticleDate(from: PreferenceManager.shared.lastDate!) {
-                        completion(date, nil)
-                    }
-                    completion(PreferenceManager.shared.lastDate, nil)
                 }
+                var matching = matching
+                matching["content_type"] = LinkContentTypeID
+                self.client.fetchEntries(matching: matching, completion: { (resultLinks) in
+                    switch resultLinks {
+                    case .success(let linksArray):
+                        if let linksEntry = linksArray.items.last {
+                            if let updateLinksStr = linksEntry.sys["updatedAt"] as? String {
+                                
+                                if let linksDate = dateFormater.date(from: updateLinksStr) {
+                                    completion(lastArticleDate! > linksDate ? lastArticleDate : linksDate, nil)
+                                } else {
+                                    completion(lastArticleDate! > PreferenceManager.shared.lastDate! ? lastArticleDate : PreferenceManager.shared.lastDate, nil)
+                                }
+                            } else {
+                                completion(lastArticleDate! > PreferenceManager.shared.lastDate! ? lastArticleDate : PreferenceManager.shared.lastDate, nil)
+                            }
+                        } else {
+                            completion(lastArticleDate! > PreferenceManager.shared.lastDate! ? lastArticleDate : PreferenceManager.shared.lastDate, nil)
+                        }
+                    case .error(let error):
+                        completion(nil, error)
+                    }
+                })
             case .error(let error):
                 completion(nil, error)
             }

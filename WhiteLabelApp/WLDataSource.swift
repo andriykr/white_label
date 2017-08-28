@@ -78,15 +78,6 @@ class WLDataSource: NSObject, NSFetchedResultsControllerDelegate {
             }
             break;
         case .update:
-            if let indexPath = indexPath {
-                
-                if let dataObject = fetchedResultsController.object(at: indexPath) as? NSManagedObject {
-                    
-                    if let cell = tableView?.cellForRow(at: indexPath) {
-                        (cell as! CellConfigurable).configure(dataObject: dataObject)
-                    }
-                }
-            }
             break;
         case .move:
             if let indexPath = indexPath {
